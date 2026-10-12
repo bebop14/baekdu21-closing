@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Roadmap",
+  "type": "object",
+  "required": ["meta", "teams", "tasks"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "title":   { "type": "string" },
+        "eyebrow": { "type": "string", "description": "제목 위 뱃지 문구" },
+        "start":   { "type": "string", "pattern": "^\\d{4}-\\d{2}$", "description": "타임라인 시작 월. 생략 시 자동 계산" },
+        "end":     { "type": "string", "pattern": "^\\d{4}-\\d{2}$" },
+        "asOf":    { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "timelineTitle": { "type": "string" },
+        "detailTitle":   { "type": "string" },
+        "remarkTitle":   { "type": "string" },
+        "todayLabel":    { "type": "string" },
+        "statusLabels":  { "type": "object", "description": "상태 표시 문구 재정의" }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "date":  { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "start": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "end":   { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "color": { "type": "string" }
+        }
+      }
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "name"],
+        "properties": {
+          "key":     { "type": "string", "description": "tasks[].team 이 참조하는 식별자" },
+          "name":    { "type": "string" },
+          "color":   { "type": "string" },
+          "remarks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "team", "name", "subs"],
+        "properties": {
+          "id":   { "type": "string" },
+          "team": { "type": "string" },
+          "name": { "type": "string" },
+          "subs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "start", "end", "status"],
+              "properties": {
+                "id":     { "type": "string" },
+                "name":   { "type": "string" },
+                "owner":  { "type": "string" },
+                "start":  { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                "end":    { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                "status": { "enum": ["plan", "progress", "done", "skip"] },
+                "notes":  { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

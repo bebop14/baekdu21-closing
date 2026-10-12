@@ -1,0 +1,5 @@
+dist/
+.DS_Store
+
+# 사내/비공개 과제 데이터는 커밋하지 않는다 (이 저장소는 개인 과제 전용)
+data/*.private.json
